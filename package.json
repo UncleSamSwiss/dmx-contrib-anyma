@@ -1,0 +1,27 @@
+{
+  "name": "dmx-contrib-anyma",
+  "version": "0.0.1",
+  "description": "Driver for NodeJS dmx module supporting Anyma uDMX",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UncleSamSwiss/dmx-contrib-anyma.git"
+  },
+  "keywords": [
+    "dmx",
+    "anyma",
+    "udmx",
+    "usb"
+  ],
+  "author": "UncleSamSwiss <samuel.weibel@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UncleSamSwiss/dmx-contrib-anyma/issues"
+  },
+  "homepage": "https://github.com/UncleSamSwiss/dmx-contrib-anyma#readme",
+  "dependencies": {
+    "usb": "^1.6.3"
+  }
+}
