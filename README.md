@@ -17,7 +17,7 @@ To use this driver with the [dmx](https://www.npmjs.com/package/dmx) module, you
 
 ```javascript
 // load the DMX module
-const DMX = require('dmx');
+const dmx = require('dmx');
 
 // register this driver module
 dmx.registerDriver('anyma', require('dmx-contrib-anyma'));
