@@ -8,7 +8,7 @@ const PRODUCT_ID = 0x5dc;
 const UNIVERSE_LEN = 512;
 
 function Anyma(deviceId = undefined, options = {}) {
-  this.universe = Buffer.alloc(UNIVERSE_LEN + 1);
+  this.universe = Buffer.alloc(UNIVERSE_LEN);
   this.readyToWrite = true;
   this.interval = 1000 / (options.dmx_speed || 33);
 
@@ -28,6 +28,7 @@ function Anyma(deviceId = undefined, options = {}) {
     throw new Error(`Couldn't find Anyma uDMX dongle for deviceId=${JSON.stringify(deviceId)}`);
   }
   this.device.open();
+  this.start();
 }
 
 Anyma.prototype.start = function () {
@@ -47,20 +48,20 @@ Anyma.prototype.close = (cb) => {
 
 Anyma.prototype.update = function (u, extraData) {
   for (const c in u) {
-    this.universe[c] = u[c];
+    this.universe[c - 1] = u[c];
   }
 
   this.emit('update', u, extraData);
 };
 
 Anyma.prototype.updateAll = function (v, _) {
-  for (let i = 1; i <= UNIVERSE_LEN; i++) {
+  for (let i = 0; i < UNIVERSE_LEN; i++) {
     this.universe[i] = v;
   }
 };
 
 Anyma.prototype.get = function (c) {
-  return this.universe[c];
+  return this.universe[c - 1];
 };
 
 Anyma.prototype.sendUniverse = function () {
@@ -68,7 +69,7 @@ Anyma.prototype.sendUniverse = function () {
     return;
   }
   this.readyToWrite = false;
-  this.device.controlTransfer(0x40, 0x0002, UNIVERSE_LEN, 1, this.universe, function (error) {
+  this.device.controlTransfer(0x40, 0x0002, UNIVERSE_LEN, 0, this.universe, function (error) {
     this.readyToWrite = true;
     if (error) {
       console.warn(error);
