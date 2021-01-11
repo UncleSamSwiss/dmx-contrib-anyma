@@ -69,7 +69,7 @@ Anyma.prototype.sendUniverse = function () {
     return;
   }
   this.readyToWrite = false;
-  this.device.controlTransfer(0x40, 0x0002, UNIVERSE_LEN, 0, this.universe, function (error) {
+  this.device.controlTransfer(0x40, 0x0002, UNIVERSE_LEN, 0, this.universe, (error) => {
     this.readyToWrite = true;
     if (error) {
       console.warn(error);
